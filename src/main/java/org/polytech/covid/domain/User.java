@@ -1,13 +1,20 @@
 package org.polytech.covid.domain;
 
+import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table
-public class Client {
+@Table(name = "utilisateur")
+public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = false)
     private Integer id;
 
     private String mail;
@@ -16,9 +23,10 @@ public class Client {
     private String firstName;
     private String lastName;
 
-    private String date;
+    @Nullable
+    private Integer vaccinated;
 
-    private Boolean isVaccinated;
+    private Integer acces;
 
     public Integer getId() {
         return id;
@@ -42,14 +50,14 @@ public class Client {
         return lastName; 
     }
 
-    public String getDate() 
+    public Integer getVaccinated() 
     { 
-        return date; 
+        return vaccinated; 
     }
 
-    public Boolean getIsVaccinated() 
+    public Integer getAcces() 
     { 
-        return isVaccinated; 
+        return acces; 
     }
 
     public void setMail(String mail) 
@@ -72,13 +80,13 @@ public class Client {
         this.lastName = lastName; 
     }
 
-    public void setDate(String date) 
+    public void setVaccinated(Integer vaccinated) 
     { 
-        this.date = date; 
+        this.vaccinated = vaccinated; 
     }
 
-    public void setIsVaccinated(Boolean isVaccinated) 
+    public void setAcces(Integer acces) 
     { 
-        this.isVaccinated = isVaccinated; 
+        this.acces = acces; 
     }
 }

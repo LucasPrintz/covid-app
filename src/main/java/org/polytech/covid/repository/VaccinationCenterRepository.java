@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VaccinationCenterRepository extends JpaRepository<VaccinationCenter, Integer>
 {
-    public List<VaccinationCenter> findAllByCityLike(String city);
+    public List<VaccinationCenter> findAllByCity(String city);
 
     public List<VaccinationCenter> findAll();
 }

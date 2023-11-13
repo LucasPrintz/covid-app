@@ -13,11 +13,28 @@ public class VaccinationCenterService {
     @Autowired
     private VaccinationCenterRepository vaccinationCenterRepository;
 
-    public List<VaccinationCenter> findAllByCityLike(String cityName) {
-        return vaccinationCenterRepository.findAllByCityLike(cityName);
+    public List<VaccinationCenter> findAllByCity(String cityName) {
+        return vaccinationCenterRepository.findAllByCity(cityName);
     }
 
     public List<VaccinationCenter> findAll() {
         return vaccinationCenterRepository.findAll();
+    }
+
+    public VaccinationCenter addVaccinationCenter(String name, String city, String address) {
+        VaccinationCenter vaccinationCenter = new VaccinationCenter(name, city, address);
+        return vaccinationCenterRepository.save(vaccinationCenter);
+    }
+
+    public VaccinationCenter updateVaccinationCenter(Integer id, String name, String city, String address) {
+        VaccinationCenter vaccinationCenter = vaccinationCenterRepository.findById(id).get();
+        vaccinationCenter.setName(name);
+        vaccinationCenter.setCity(city);
+        vaccinationCenter.setAddress(address);
+        return vaccinationCenterRepository.save(vaccinationCenter);
+    }
+
+    public void deleteVaccinationCenter(Integer id) {
+        vaccinationCenterRepository.deleteById(id);
     }
 }
