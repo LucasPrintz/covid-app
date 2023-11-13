@@ -1,0 +1,45 @@
+<input type="text" placeholder="Dans quelle ville ?" #filter>
+<button class="primary" type="button" (ngSubmit)="filterCenters(filter.value)" (click)="filterCenters(filter.value)">Rechercher</button>
+
+<ul *ngIf="filteredCenters.length > 0; else noCenters">
+    <li *ngFor="let aCenter of filteredCenters"
+        [ngClass]="selected==aCenter ? 'selected' : ''">
+        
+        <button 
+            [ngStyle]="{'font-weight' : isSpecialCenter(aCenter) ? 'bold' : 'normal'}"
+            (click)="selectCenter(aCenter)">
+            
+            <span>{{aCenter.name}}</span><br/>
+            <span>{{aCenter.address}}</span><br/>
+            <span>{{aCenter.postalCode}} {{aCenter.city}}</span><br/>        
+        </button>
+    </li>
+</ul>
+<ng-template #noCenters>
+    <p>Aucun centre de vaccination trouvé</p>
+</ng-template>
+
+<div *ngIf="selected">
+    <h2>Prise de rendez-vous vaccination</h2>
+    <span style="text-transform: uppercase;">{{selected.name}}</span> <br/>
+    <span>{{selected.address}}</span> <br/>
+    <span>{{selected.postalCode}} {{selected.city}}</span> <br/>
+    <form (ngSubmit)="reservation(prenom.value, nom.value, email.value, date.value)">
+        <label>Prénom</label><br/>
+        <input type="text" placeholder="Prénom" #prenom><br/>
+        <label>Nom</label><br/>
+        <input type="text" placeholder="Nom" #nom><br/>
+        <span>Email</span><br/>
+        <input type="email" placeholder="Email" #email><br/>
+        <span>Date du rendez-vous</span><br/>
+        <input type="date" placeholder="Date du rendez-vous" #date><br/>
+    </form>
+    <button class="primary" type="button" (click)="reservation(prenom.value, nom.value, email.value, date.value)">Prendre rendez-vous</button>
+</div>
+
+<div *ngIf="utilisateur">
+    <h2>Votre réservation a bien été prise en compte</h2>
+    <span>{{utilisateur.prenom}} {{utilisateur.nom}}</span> <br/>
+    <span>{{utilisateur.email}}</span> <br/>
+    <span>{{utilisateur.dateRendezVous}}</span> <br/>
+</div>
