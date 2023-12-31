@@ -1,4 +1,4 @@
-#Covid-app
+# Covid-app
 
 ## Description
 Projet de fullstack en Spring Boot et Angular par Lucas PRINTZ
