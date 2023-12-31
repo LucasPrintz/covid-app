@@ -1,5 +1,6 @@
 package org.polytech.covid.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.polytech.covid.domain.VaccinationCenter;
@@ -13,25 +14,24 @@ public class VaccinationCenterService {
     @Autowired
     private VaccinationCenterRepository vaccinationCenterRepository;
 
-    public List<VaccinationCenter> findAllByCity(String cityName) {
-        return vaccinationCenterRepository.findAllByCity(cityName);
-    }
-
     public List<VaccinationCenter> findAll() {
         return vaccinationCenterRepository.findAll();
     }
 
-    public VaccinationCenter addVaccinationCenter(String name, String city, String address) {
-        VaccinationCenter vaccinationCenter = new VaccinationCenter(name, city, address);
-        return vaccinationCenterRepository.save(vaccinationCenter);
+    public VaccinationCenter findById(Integer id) {
+        return vaccinationCenterRepository.findById(id).get();
     }
 
-    public VaccinationCenter updateVaccinationCenter(Integer id, String name, String city, String address) {
-        VaccinationCenter vaccinationCenter = vaccinationCenterRepository.findById(id).get();
-        vaccinationCenter.setName(name);
-        vaccinationCenter.setCity(city);
-        vaccinationCenter.setAddress(address);
-        return vaccinationCenterRepository.save(vaccinationCenter);
+    public List<VaccinationCenter> findAllByCity(String cityName) {
+        return vaccinationCenterRepository.findAllByCity(cityName);
+    }
+
+    public void addVaccinationCenter(VaccinationCenter vaccinationCenter) {
+        vaccinationCenterRepository.save(vaccinationCenter);
+    }
+
+    public void updateVaccinationCenter(VaccinationCenter vaccinationCenter) {
+        vaccinationCenterRepository.save(vaccinationCenter);
     }
 
     public void deleteVaccinationCenter(Integer id) {

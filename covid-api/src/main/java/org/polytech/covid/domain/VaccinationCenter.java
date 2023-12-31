@@ -1,5 +1,8 @@
 package org.polytech.covid.domain;
 
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -13,17 +16,29 @@ import jakarta.persistence.Table;
 public class VaccinationCenter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@OneToMany(mappedBy = "vaccinationCenter", fetch = FetchType.LAZY, orphanRemoval = false)
+    @Column(name = "id")
     private Integer id;
+
+    @Column(name="name")
     private String name;
 
+    @Column(name="address")
     private String address;
+
+    @Column(name="city")
     private String city;
 
-    public VaccinationCenter(String name, String city, String address) {
+    @Column(name="postal_code")
+    private String postalCode;
+
+    public VaccinationCenter() {
+    }
+
+    public VaccinationCenter(String name, String city, String address, String postalCode) {
         this.name = name;
         this.city = city;
         this.address = address;
+        this.postalCode = postalCode;
     }
 
     public Integer getId() {
@@ -39,8 +54,18 @@ public class VaccinationCenter {
         return address; 
     }
 
+    public String getPostalCode() 
+    { 
+        return postalCode; 
+    }
+
     public String getCity() {
         return city;
+    }
+
+    public void setId(Integer id) 
+    { 
+        this.id = id; 
     }
 
     public void setName(String name) 
@@ -51,6 +76,11 @@ public class VaccinationCenter {
     public void setAddress(String address) 
     { 
         this.address = address; 
+    }
+
+    public void setPostalCode(String postalCode) 
+    { 
+        this.postalCode = postalCode; 
     }
 
     public void setCity(String city) 

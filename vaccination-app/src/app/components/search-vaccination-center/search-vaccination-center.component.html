@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="filterCenters()">
+    <mat-form-field class="input-text" appearance="fill">
+        <mat-label for="filter">Trouver un centre de vaccination</mat-label>
+        <input matInput type="text" placeholder="Dans quelle ville ?" [formControl]="searchText">
+        <button mat-icon-button matSuffix (click)="filterCenters()">
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-form-field>
+</form>
+
+<mat-list *ngIf="shownCenters.length > 0; else noCenters">
+    <mat-list-item *ngFor="let aCenter of shownCenters">         
+        <span matListItemTitle>{{aCenter.name}}</span><br/>
+        <span matListItemLine>{{aCenter.address}}</span><br/>
+        <span matListItemLine>{{aCenter.postalCode}} {{aCenter.city}}</span><br/>
+        <button matListItemMeta mat-button routerLink="/prise-rendez-vous-vaccination/{{aCenter.id}}">Choisir</button> 
+    </mat-list-item>
+</mat-list>
+<button mat-button (click)="showAllFilteredCenters()" *ngIf="shownCenters.length < filteredCenters.length">Afficher plus</button>
+
+<ng-template #noCenters>
+    <p>Aucun centre de vaccination trouvé</p>
+</ng-template>

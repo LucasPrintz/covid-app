@@ -1,0 +1,119 @@
+<button mat-icon-button (click)="back()">
+    <mat-icon>arrow_back</mat-icon>
+</button>
+
+<ng-container *ngIf="users; else noUsers">
+    <ng-container *ngIf="getSuperAdmins().length > 0">
+        <button mat-button routerLink="/create-utilisateur">
+            <h2>Super administrateurs</h2>
+            <mat-icon iconPositionEnd>add</mat-icon>
+        </button>
+        <table mat-table [dataSource]="getSuperAdmins()">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let user">{{user.id}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Name">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let user">{{user.firstName}} {{user.lastName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let user">
+                    <button mat-icon-button type="button" routerLink="/modification-utilisateur/{{user.id}}">
+                        <mat-icon iconPositionEnd>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button type="button" color="warn" (click)="deletePersonnel(user.id)">
+                        <mat-icon iconPositionEnd>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
+        </table>
+    </ng-container>
+    <ng-container *ngIf="getSuperAdmins().length === 0">
+        <tr>
+            <td colspan="3">Aucun super administrateur trouvé</td>
+        </tr>
+    </ng-container>
+    <br/>
+    <ng-container *ngIf="getAdmins().length > 0">
+        <button mat-button routerLink="/create-utilisateur">
+            <h2>Administrateurs</h2>
+            <mat-icon iconPositionEnd>add</mat-icon>
+        </button>
+        <table mat-table [dataSource]="getAdmins()">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let user">{{user.id}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Name">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let user">{{user.firstName}} {{user.lastName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let user">
+                    <button mat-icon-button type="button" routerLink="/modification-utilisateur/{{user.id}}">
+                        <mat-icon iconPositionEnd>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button type="button" color="warn" (click)="deletePersonnel(user.id)">
+                        <mat-icon iconPositionEnd>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
+        </table>
+    </ng-container>
+    <ng-container *ngIf="getAdmins().length === 0">
+        <tr>
+            <td colspan="3">Aucun administrateur trouvé</td>
+        </tr>
+    </ng-container>
+    <br/>
+
+    <ng-container *ngIf="getMedecins().length > 0">
+        <button mat-button routerLink="/create-utilisateur">
+            <h2>Médecins</h2>
+            <mat-icon iconPositionEnd>add</mat-icon>
+        </button>
+        <table mat-table [dataSource]="getMedecins()">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let user">{{user.id}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Name">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let user">{{user.firstName}} {{user.lastName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let user">
+                    <button mat-icon-button type="button" routerLink="/modification-utilisateur/{{user.id}}">
+                        <mat-icon iconPositionEnd>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button type="button" color="warn" (click)="deletePersonnel(user.id)">
+                        <mat-icon iconPositionEnd>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
+        </table>
+    </ng-container>
+    <ng-container *ngIf="getMedecins().length === 0">
+        <tr>
+            <td colspan="3">Aucun médecin trouvé</td>
+        </tr>
+    </ng-container>
+</ng-container>
+
+<ng-template #noUsers>
+    <p>Aucun utilisateur trouvé</p>
+</ng-template>
+
+
+
+

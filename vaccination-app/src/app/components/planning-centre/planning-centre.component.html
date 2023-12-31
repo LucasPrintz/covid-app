@@ -1,0 +1,25 @@
+<div *ngIf="center">
+    <h2>Planning du centre {{center.name}}</h2>
+    <div *ngIf="reservation">
+        <div *ngIf="reservation.length > 0">
+            <mat-card *ngFor="let aReservation of reservation">
+                <mat-card-header>
+                    <mat-card-title>{{aReservation.date | date:'dd/MM/yyyy'}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>{{aReservation.patient.firstName}} {{aReservation.patient.lastName}}</p>
+                </mat-card-content>
+                <mat-card-actions *ngIf="!aReservation.isVaccinated">
+                    <button mat-button color="accent" (click)="validateVaccination(aReservation.id)">Valider</button>
+                    <button mat-button color="warn" (click)="deleteReservation(aReservation.id)">Annuler</button>
+                </mat-card-actions>
+                <mat-card-content *ngIf="aReservation.isVaccinated">
+                    <mat-icon>check</mat-icon>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div *ngIf="reservation.length === 0">
+            <p>Aucun rendez-vous à venir</p>
+        </div>
+    </div>
+</div>

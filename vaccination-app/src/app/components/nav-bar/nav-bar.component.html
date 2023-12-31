@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+    <button class="mdc-button" color="accent" routerLink="/search-vaccination-center">Covid Vaccination App</button>
+    <button mat-button routerLink="/gestion-centres" *ngIf="isLoggedIn && access === 'SUPERADMIN'">Liste des centres</button>
+    <button mat-button routerLink="/gestion-medecins-centre/{{affiliatedCenterId}}" *ngIf="isLoggedIn && access === 'ADMIN' && affiliatedCenterId !== null">Mon centre</button>
+    <button mat-button routerLink="/planning-centre/{{affiliatedCenterId}}" *ngIf="isLoggedIn && (access === 'MEDECIN' || access === 'ADMIN') && affiliatedCenterId !== null">Réservations</button>
+    <button mat-button routerLink="/gestion-utilisateurs" *ngIf="isLoggedIn && access === 'SUPERADMIN'">Utilisateurs</button>
+    <span class="spacer"></span>
+    <button mat-icon-button routerLink="/login" *ngIf="!isLoggedIn">
+        <mat-icon>login</mat-icon>
+    </button>
+    <button mat-icon-button (click)="logout()" routerLink="/search-vaccination-center" *ngIf="isLoggedIn">
+        <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>
+

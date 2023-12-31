@@ -1,0 +1,48 @@
+<div>
+    <button mat-icon-button (click)="back()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div *ngIf="!isReserved">
+        <h2>Prise de rendez-vous pour vaccination</h2>
+        <ng-container *ngIf="center">
+            <span style="text-transform: uppercase;">{{center.name}}</span> <br/>
+            <span>{{center.address}}</span> <br/>
+            <span>{{center.postalCode}} {{center.city}}</span> <br/>
+        </ng-container>
+    </div>
+    <form *ngIf="!isReserved" [formGroup]="form" (ngSubmit)="reserver()">
+        <mat-form-field class="input-text" appearance="fill">
+            <mat-label for="prenom">Prénom</mat-label>
+            <input matInput type="text" placeholder="Prénom" [formControl]="prenom" required/>
+            <mat-error *ngIf="prenom.hasError('required')">Ce champ est obligatoire</mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-text" appearance="fill">
+            <mat-label for="nom">Nom</mat-label>
+            <input matInput type="text" placeholder="Nom" [formControl]="nom" required/>
+            <mat-error *ngIf="nom.hasError('required')">Ce champ est obligatoire</mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-text" appearance="fill">
+            <mat-label for="email">Email</mat-label>
+            <input matInput type="email" [formControl]="mail" placeholder="Email" required/>
+            <mat-error *ngIf="mail.hasError('email') && !mail.hasError('required')">Adresse email invalide</mat-error>
+            <mat-error *ngIf="mail.hasError('required')">Adresse email obligatoire</mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-text" appearance="fill">
+            <mat-label for="telephone">Numéro de téléphone</mat-label>
+            <input matInput type="text" placeholder="Numéro de téléphone" [formControl]="telephone" required/>
+            <mat-error *ngIf="telephone.hasError('pattern') && !telephone.hasError('required')">Numéro de téléphone invalide</mat-error>
+            <mat-error *ngIf="telephone.hasError('required')">Ce champ est obligatoire</mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-text" appearance="fill">
+            <mat-label for="date">Date de rendez-vous</mat-label>
+            <input matInput [min]="currentDate" type="text" [matDatepicker]="picker" placeholder="Date de rendez-vous" [formControl]="date" required/>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="date.hasError('required')">Ce champ est obligatoire</mat-error>
+            <mat-error *ngIf="date.hasError('matDatepickerMin')">Date invalide</mat-error>
+        </mat-form-field>
+        <button mat-button class="primary" type="button" (click)="reserver()">Prendre rendez-vous</button>
+    </form>
+    <div *ngIf="isReserved">Votre réservation a bien été prise en compte</div>
+    
+</div>

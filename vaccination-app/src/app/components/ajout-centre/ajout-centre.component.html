@@ -1,0 +1,51 @@
+<div>
+    <button mat-icon-button (click)="back()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div *ngIf="isSuccesful">
+        <h2>Centre créé avec succès</h2>
+        <div>
+            <span>Nom : {{nom.value}}</span><br/>
+            <span>Adresse : {{adresse.value}}</span><br/>
+            <span>Code postal : {{codePostal.value}}</span><br/>
+            <span>Ville : {{ville.value}}</span><br/>
+        </div>
+    </div>
+    <div *ngIf="!isSuccesful">
+        <h2>Ajout d'un centre</h2>
+        <form *ngIf="!isSuccesful" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <mat-form-field class="input-text">
+                <mat-label for="nom">Nom</mat-label>
+                <input matInput type="text" placeholder="Nom" required [formControl]="nom">
+                <mat-error *ngIf="nom.hasError('required')">Ce champ est obligatoire</mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-text" appearance="fill">
+                <mat-label for="adresse">Adresse</mat-label>
+                <input matInput type="text" placeholder="Adresse" [formControl]="adresse" required/>
+                <mat-error *ngIf="adresse.hasError('required')">Ce champ est obligatoire</mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-text" appearance="fill">
+                <mat-label for="codePostal">Code postal</mat-label>
+                <input matInput type="text" [formControl]="codePostal" placeholder="Code postal" required/>
+                <mat-error *ngIf="codePostal.hasError('pattern') && !codePostal.hasError('required')">Code postal invalide (5 chiffres)</mat-error>
+                <mat-error *ngIf="codePostal.hasError('required')">Ce champ est obligatoire</mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-text" appearance="fill">
+                <mat-label for="ville">Ville</mat-label>
+                <input matInput type="text" [formControl]="ville" placeholder="Ville" required/>
+                <mat-error *ngIf="codePostal.hasError('required')">Adresse email obligatoire</mat-error>
+            </mat-form-field>
+            <button mat-button class="primary" type="button" (click)="onSubmit()">Mettre à jour</button>
+            <mat-hint color="warn" *ngIf="isCreationFailed">
+                <div *ngIf="errorMessage">
+                    Création échouée :
+                    {{errorMessage}}
+                </div>
+            </mat-hint>
+        </form>
+    </div>
+</div>
+
+
+
+

@@ -7,6 +7,7 @@ import org.polytech.covid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,20 +16,35 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     
     @Autowired
-    private UserService clientService;
+    private UserService userService;
 
-    @RequestMapping(path = "/api/clients/admin/getByFirstNameOrLastName/{firstName}/{lastName}", method = RequestMethod.GET)
-    public List<User> get(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
-        return clientService.findAllByFirstNameOrLastName(firstName, lastName);
-    }
-
-    @GetMapping(path = "/api/clients/admin/getAll")
+    @GetMapping(path = "/api/admin/users")
     public List<User> getAll() {
-        return clientService.findAll();
+        return userService.findAll();
     }
 
-    @RequestMapping(path = "/api/clients/admin/validateVaccine/{id}", method = RequestMethod.PUT)
-    public User validateVaccine(@PathVariable("id") Integer id) {
-        return clientService.validateVaccine(id);
+    @GetMapping(path = "/api/admin/user/{id}")
+    public User getById(@PathVariable("id") Integer id) {
+        return userService.findById(id);
+    }
+
+    @GetMapping(path = "/api/admin/users/center/{id}")
+    public List<User> getByVaccinationCenterId(@PathVariable("id") Integer id) {
+        return userService.findByVaccinationCenterId(id);
+    }
+
+    @RequestMapping(path = "/api/admin/user/create", method = RequestMethod.POST)
+    public void addUser(@RequestBody User user) {
+        userService.addUser(user);
+    }
+
+    @RequestMapping(path = "/api/admin/user/update", method = RequestMethod.POST)
+    public void updateUser(@RequestBody User user) {
+        userService.updateUser(user);
+    }
+
+    @RequestMapping(path = "/api/admin/user/delete/{id}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable("id") Integer id) {
+        userService.deleteUser(id);
     }
 }

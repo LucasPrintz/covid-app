@@ -1,11 +1,15 @@
 package org.polytech.covid.domain;
 
 import io.micrometer.common.lang.Nullable;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -14,19 +18,53 @@ import jakarta.persistence.Table;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = false)
+    @Column(name = "id")
     private Integer id;
 
-    private String mail;
-    private String phoneNumber;
-
+    @Column(name="first_name")
     private String firstName;
+
+    @Column(name="last_name")
     private String lastName;
 
-    @Nullable
-    private Integer vaccinated;
+    @Column(unique = true, name="mail")
+    private String mail;
 
-    private Integer acces;
+    @Column(name="password")
+    private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "vaccination_center_id")
+    private VaccinationCenter vaccinationCenter;
+
+    @Column(name="access")
+    private AccessEnum access;
+
+    public User() {
+    }
+
+    public User(String mail, String password, AccessEnum access) {
+        this.mail = mail;
+        this.password = password;
+        this.access = access;
+    }
+
+    public User(String firstName, String lastName, String mail, String password, AccessEnum access) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mail = mail;
+        this.password = password;
+        this.access = access;
+    }
+
+    public User(String firstName, String lastName, String mail, String password, VaccinationCenter vaccinationCenter, AccessEnum access) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mail = mail;
+        this.password = password;
+        this.vaccinationCenter = vaccinationCenter;
+        this.access = access;
+    }
 
     public Integer getId() {
         return id;
@@ -36,8 +74,8 @@ public class User {
         return mail;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPassword() {
+        return password;
     }
 
     public String getFirstName() 
@@ -50,14 +88,19 @@ public class User {
         return lastName; 
     }
 
-    public Integer getVaccinated() 
+    public VaccinationCenter getVaccinationCenter() 
     { 
-        return vaccinated; 
+        return vaccinationCenter; 
     }
 
-    public Integer getAcces() 
+    public AccessEnum getAccess() 
     { 
-        return acces; 
+        return access; 
+    }
+
+    public void setId(Integer id) 
+    { 
+        this.id = id; 
     }
 
     public void setMail(String mail) 
@@ -65,9 +108,9 @@ public class User {
         this.mail = mail; 
     }
 
-    public void setPhoneNumber(String phoneNumber) 
+    public void setPassword(String password) 
     { 
-        this.phoneNumber = phoneNumber; 
+        this.password = password;
     }
 
     public void setFirstName(String firstName) 
@@ -80,13 +123,13 @@ public class User {
         this.lastName = lastName; 
     }
 
-    public void setVaccinated(Integer vaccinated) 
+    public void setVaccinationCenter(VaccinationCenter vaccinationCenter) 
     { 
-        this.vaccinated = vaccinated; 
+        this.vaccinationCenter = vaccinationCenter; 
     }
 
-    public void setAcces(Integer acces) 
+    public void setAccess(AccessEnum access) 
     { 
-        this.acces = acces; 
+        this.access = access; 
     }
 }

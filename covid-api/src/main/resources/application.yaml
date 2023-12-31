@@ -1,11 +1,25 @@
 spring:
+  main:
+    banner-mode: "off"
   liquibase:
     enabled: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/covid-db
+    url: jdbc:postgresql://localhost:5432/covid-db?autosave=conservative
     username: postgres
     password: admin123
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
-    hibernate.ddl-auto: create
+    hibernate:
+      ddl-auto: create-drop
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+
+app:
+  db:
+    init:
+      enabled: true
