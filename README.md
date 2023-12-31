@@ -1,7 +1,7 @@
 # Covid-app
 
 ## Description
-Projet de fullstack en Spring Boot et Angular par Lucas PRINTZ
+Projet de fullstack en Spring Boot et Angular réalisé par Lucas PRINTZ
 
 ## Tâches effectuées
 - Implémentation du Mockup proposé
